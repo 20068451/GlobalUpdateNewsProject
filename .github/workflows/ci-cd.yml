@@ -42,7 +42,7 @@ jobs:
             set -eux
             sudo systemctl enable --now docker || true
             docker pull 20068451/globalupdatenewsapp:latest
-            docker rm -f oneworld-web || true
+            docker rm -f globalupdatenewsapp || true
             docker run -d --restart unless-stopped -p 80:80 --name globalupdatenews 20068451/globalupdatenewsapp:latest
             sleep 2
             curl -I http://localhost || true
