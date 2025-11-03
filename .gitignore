@@ -1,0 +1,15 @@
+
+.terraform/
+terraform/.terraform/
+terraform.tfstate*
+*.tfstate.backup
+crash.log
+
+override.tf
+override.tf.json
+*.tfvars
+
+*.pem
+*.key
+id_ed25519
+id_ed25519.pub

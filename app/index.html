@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Testing - Global Update News</title>
+    <style>
+        /* Shared Styles from Main Site */
+        body {
+            font-family: 'Georgia', serif; 
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            color: #1c2022;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 32px;
+            color: #1c2022;
+            border-bottom: 3px solid #BB1919; /* Primary Red Accent */
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #333;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            border-left: 5px solid #BB1919;
+            padding-left: 10px;
+        }
+        
+        /* --- Component Styles --- */
+        
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            display: inline-block;
+            transition: background-color 0.2s, opacity 0.2s;
+            margin-right: 15px;
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background-color: #BB1919; /* Main Action Button */
+            color: #fff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #991515;
+        }
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+        .btn-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Forms/Inputs */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+            font-family: Arial, sans-serif; /* Using a sans-serif for inputs for clarity */
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.2s;
+        }
+        input:focus, textarea:focus {
+            border-color: #BB1919;
+            outline: none;
+        }
+        
+        /* Error & Success States */
+        .alert {
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+        .alert-error {
+            background-color: #fce4e4;
+            color: #c00;
+            border: 1px solid #c00;
+        }
+        .alert-success {
+            background-color: #e6ffe6;
+            color: #008000;
+            border: 1px solid #008000;
+        }
+        
+        /* Links and Tags */
+        .tag {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .tag-world {
+            background-color: #BB1919;
+            color: #fff;
+        }
+        .tag-tech {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .link-test {
+            color: #007bff;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .link-test:hover {
+            color: #BB1919;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Development Testing Interface</h1>
+        <p>This page is for testing and verifying the visual stability and functionality of core UI components before deployment on the Global Update News platform.</p>
+
+        ---
+
+        <h2>🎯 Buttons and Actions</h2>
+        
+        <button class="btn btn-primary">Primary Action</button>
+        <button class="btn btn-primary btn-disabled">Disabled Primary</button>
+        <button class="btn btn-secondary">Secondary Action</button>
+        <button class="btn btn-secondary btn-disabled">Disabled Secondary</button>
+        <a href="#" class="btn btn-primary">Link as Button</a>
+
+        ---
+        
+        <h2>📝 Form Elements</h2>
+
+        <div class="form-group">
+            <label for="input-text">Text Input (Standard)</label>
+            <input type="text" id="input-text" placeholder="Enter headline or search term">
+        </div>
+        
+        <div class="form-group">
+            <label for="input-email">Email Input (Focus State Test)</label>
+            <input type="email" id="input-email" placeholder="Test@globalupdate.com">
+        </div>
+        
+        <div class="form-group">
+            <label for="input-textarea">Text Area</label>
+            <textarea id="input-textarea" rows="4" placeholder="Enter article summary or comment..."></textarea>
+        </div>
+
+        ---
+
+        <h2>⚠️ Alert & Status Messages</h2>
+        
+        <div class="alert alert-error">
+            <strong>Error:</strong> Failed to validate input. Please check required fields (Testing Red Alert).
+        </div>
+        
+        <div class="alert alert-success">
+            <strong>Success:</strong> Article saved successfully! (Testing Green Alert).
+        </div>
+        
+        ---
+
+        <h2>🏷️ Typography, Links, and Tags</h2>
+        
+        <p style="font-size: 18px; color: #BB1919; font-weight: bold;">Breaking News Headline Style</p>
+        <p>This is a standard paragraph of body text for readability testing. The font should be 'Georgia', serif.</p>
+        
+        <p>A standard hyperlink test: <a href="#" class="link-test">Read more about the testing process here.</a></p>
+        
+        <div>
+            <span class="tag tag-world">World News</span>
+            <span class="tag tag-tech">Technology</span>
+            <span class="tag btn-secondary" style="border-radius: 5px;">Business</span>
+        </div>
+
+    </div>
+
+</body>
+
