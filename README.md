@@ -1,28 +1,3 @@
-# 🌍 Global Update News App — Automated Cloud Infrastructure and CI/CD Deployment
-
-This repository contains the full implementation of the **Global Update News App**, developed as part of the *B9IS121 Networks and Systems Administration* module.  
-It demonstrates a complete **DevOps automation pipeline** using **Terraform**, **Docker**, **GitHub Actions**, and **Amazon Web Services (AWS)**.
-
----
-
-## 🧾 Project Overview
-
-The **Global Update News App** is a simple web application deployed on the AWS cloud using modern automation tools.  
-The goal of the project was to design and implement a **fully automated infrastructure** that can:
-
-- Provision AWS cloud resources using **Terraform**
-- Containerize the application with **Docker**
-- Automate build and deployment through **GitHub Actions**
-- Host a live web application on **AWS EC2**, accessible via HTTP port 80
-
-This project showcases the integration of **cloud networking, Infrastructure as Code, containerization, and CI/CD pipelines** within a single automated system.
-
----
-
-## 🧰 Tools and Technologies
-
-| Category | Tool | Description |
-|-----------|------|-------------|
 # Global Update News App — End-to-End DevOps Automation with Terraform, Docker, GitHub Actions, and AWS
 
 This repository contains the complete implementation of the Global Update News App, a project developed for the B9IS121 Networks and Systems Administration.  
@@ -40,9 +15,10 @@ Finally with the GitHub Actions automates the entire build and deployment proces
 
 ---
 ## External Links
+## External Links
 
-GitHub Repository:`https://github.com/20068451/GlobalUpdateNewsProject`
-Video Demo Link:`https://mydbs-my.sharepoint.com/:v:/g/personal/20068451_mydbs_ie/EZCa7wCyZ55AnrbbV9_pKqABlbBhWUiM5GIxrQ-GKfjZhA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=zG29GS`
+* **GitHub Repository:** [GlobalUpdateNewsProject](https://github.com/20068451/GlobalUpdateNewsProject)
+* **Video Demo Link:** [Project Video Demo](https://mydbs-my.sharepoint.com/:v:/g/personal/20068451_mydbs_ie/EZCa7wCyZ55AnrbbV9_pKqABlbBhWUiM5GIxrQ-GKfjZhA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=zG29GS)
 
 ---
 ## Technologies and Tools
