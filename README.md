@@ -101,133 +101,7 @@ sudo docker login
 sudo docker push 20068451/globalupdatenewsapp:latest
 
 ### Create Terraform configuration file
-terraform {
-  required_version = ">= 1.6.0"
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = "eu-west-1"
-}
-
-resource "aws_key_pair" "this" {
-  key_name   = "GlobalUpdateNewsApp"
-  public_key = file("~/.ssh/id_ed25519.pub")
-}
-
-resource "aws_vpc" "this" {
-  cidr_block           = "10.0.0.0/16"
-  enable_dns_support   = true
-  enable_dns_hostnames = true
-
-  tags = { Name = "GlobalUpdateNewsAppVPC" }
-}
-
-resource "aws_internet_gateway" "this" {
-  vpc_id = aws_vpc.this.id
-  tags   = { Name = "GlobalUpdateNewsAppIGW" }
-}
-
-resource "aws_subnet" "public" {
-  vpc_id                  = aws_vpc.this.id
-  cidr_block              = "10.0.1.0/24"
-  availability_zone       = "eu-west-1"
-  map_public_ip_on_launch = true
-
-  tags = { Name = "GlobalUpdateNewsAppSubnet" }
-}
-
-resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.this.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.this.id
-  }
-
-  tags = { Name = "GlobalUpdateNewsAppRouteTable" }
-}
-
-resource "aws_route_table_association" "public_assoc" {
-  subnet_id      = aws_subnet.public.id
-  route_table_id = aws_route_table.public.id
-}
-
-resource "aws_security_group" "web" {
-  name        = "GlobalUpdateNewsApp-SG"
-  description = "Allow SSH, HTTP"
-  vpc_id      = aws_vpc.this.id
-
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description = "HTTP"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = { Name = "GlobalUpdateNewsAppSecurityGroup" }
-}
-
-
-resource "aws_instance" "web" {
-  ami                    = "ami-0bc691261a82b32bc"
-  instance_type          = "t3.micro"
-  key_name               = aws_key_pair.this.key_name
-  subnet_id              = aws_subnet.public.id
-  vpc_security_group_ids = [aws_security_group.web.id]
-
-  tags = { Name = "GlobalUpdateNewsWebServer" }
-
-  user_data = <<-EOF
-    #!/bin/bash
-    set -eux
-    apt-get update -y
-    apt-get install -y docker.io
-    systemctl enable --now docker
-    usermod -aG docker ubuntu
-  EOF
-}
-
-output "vpc_id" {
-  value       = aws_vpc.this.id
-  description = "VPC ID"
-}
-
-output "security_group_id" {
-  value       = aws_security_group.web.id
-  description = "Security Group ID"
-}
-
-output "ec2_instance_id" {
-  value       = aws_instance.web.id
-  description = "EC2 Instance ID"
-}
-
-output "ec2_public_ip" {
-  value       = aws_instance.web.public_ip
-  description = "Public IPv4 address for the web instance"
-}
+All Terraform HCL code is located in the `terraform/main.tf` file. This file defines the infrastructure shown above, including the network setup, Security Group rules, and the `user_data` script.
 
 ### Terraform Apply
 terraform init
@@ -253,54 +127,7 @@ EC2_PUBLIC_IP : Public IP address
 SSH_PRIVATE_KEY : SECRET - Content of the private key
 
 ### Create the CI/CD workflow file at Ubuntu Host
-name: Build and Deploy to EC2
-
-on:
-  push:
-    branches: [ "main" ]
-
-jobs:
-  build_and_push:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: 20068451/globalupdatenewsapp:latest
-
-  deploy:
-    needs: build_and_push
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to EC2 via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_PUBLIC_IP }}
-          username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script_stop: true
-          script: |
-            set -eux
-            sudo systemctl enable --now docker || true
-            docker pull 20068451/globalupdatenewsapp:latest
-            docker rm -f oneworld-web || true
-            docker run -d --restart unless-stopped -p 80:80 --name globalupdatenews 20068451/globalupdatenewsapp:latest
-            sleep 2
-            curl -I http://localhost || true
+The complete CI/CD pipeline config is added in the **`.github/workflows/ci-cd.yml`** file.
 
 ### Push your project to GitHub
 git add .
@@ -311,5 +138,5 @@ git push -u origin main
 
 ### Check on the GitHub Website about workflow.
 
-### Check html http:// 
+### Check html http:// EC2 Instance Public IP
 ---
